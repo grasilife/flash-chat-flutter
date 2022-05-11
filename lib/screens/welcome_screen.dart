@@ -8,11 +8,59 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      // upperBound: 100.0,
+      duration: Duration(
+        seconds: 3,
+      ),
+    );
+    animation = ColorTween(
+      begin: Colors.red,
+      end: Colors.blue,
+    ).animate(controller);
+    //曲线动画
+    // animation = CurvedAnimation(
+    //   parent: controller,
+    //   //减速曲线
+    //   curve: Curves.decelerate,
+    // );
+    controller.forward();
+    // animation.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     controller.reverse(from: 1.0);
+    //   } else if (status == AnimationStatus.dismissed) {
+    //     controller.forward();
+    //   }
+    //   print(status);
+    // });
+    controller.addListener(() {
+      setState(() {});
+
+      //每秒运行60次,范围0-1
+      print(animation.value);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.red.withOpacity(controller.value),
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
