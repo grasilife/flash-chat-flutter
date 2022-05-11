@@ -81,7 +81,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 TyperAnimatedTextKit(
                   text: ['Flash Chat'],
                   textStyle: TextStyle(
-                    color: Colors.black54,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
